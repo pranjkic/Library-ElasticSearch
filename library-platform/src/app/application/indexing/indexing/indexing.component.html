@@ -1,1 +1,32 @@
-<p>indexing works!</p>
+<div>
+    <form [formGroup]="indexingForm" (ngSubmit)="onSubmit()">
+        <p>Title</p>
+        <input type="text" formControlName="title">
+        <p>Author</p>
+        <input type="text" formControlName="author">
+        <p>Genre</p>
+        <input type="text" formControlName="genre">
+        <p>ISBN</p>
+        <input type="text" formControlName="ISBN">
+        <p>Key words</p>
+        <input type="text" formControlName="keyWords">
+        <p>Publisher</p>
+        <input type="text" formControlName="publisher">
+        <p>Publishing year</p>
+        <input type="number" formControlName="publishingYear">
+        <p>Publishing place</p>
+        <input type="text" formControlName="publishingPlace">
+        <p>Page number</p>
+        <input type="number" formControlName="pageNumber">
+        <p>Sysnopys</p>
+        <input type="text" formControlName="sysnopys">
+        <p>Lectoring data</p>
+        <input type="text" formControlName="lectoringData">
+        <p>Directors</p>
+        <input type="text" formControlName="directors">
+        <p>Content</p>
+        <input type="text" formControlName="content">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</div>

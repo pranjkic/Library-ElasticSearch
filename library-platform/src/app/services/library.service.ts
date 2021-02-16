@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators'; 
+import { UploadModelBook } from '../model/model'
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8','responseType': 'applicatison/json'  })
@@ -37,6 +37,11 @@ export class LibraryService {
     return result;
   }
 
+  public indexBook(book: UploadModelBook): Observable<{}>{
+    const url = `${this.apiServerUrl}/indexbook/add`;
+    return this.http.post(url, book, {observe: 'response'});
+  }
+  
   demoMethod()
   {
     return "Hello World!"

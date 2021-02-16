@@ -11,6 +11,7 @@ import { HomeComponent } from './application/home/home/home.component';
 import { SearchComponent } from './application/search/search/search.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IndexingComponent } from './application/indexing/indexing/indexing.component'
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { IndexingComponent } from './application/indexing/indexing/indexing.comp
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
