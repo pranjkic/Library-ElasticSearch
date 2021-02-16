@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import { HomeComponent } from './application/home/home/home.component';
 import { SearchComponent } from './application/search/search/search.component';
+import { HttpClientModule } from '@angular/common/http';
+import { IndexingComponent } from './application/indexing/indexing/indexing.component'
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { SearchComponent } from './application/search/search/search.component';
     MainviewComponent,
     SidebarComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    IndexingComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
   ],
