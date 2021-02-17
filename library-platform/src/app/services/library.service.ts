@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UploadModelBook } from '../model/model'
+import { UploadModelBook, SimpleQuery } from '../model/model'
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8','responseType': 'applicatison/json'  })
@@ -37,15 +37,14 @@ export class LibraryService {
     return result;
   }
 
-  //public indexBook(book: UploadModelBook): Observable<{}>{
   public indexBook(book: FormData): Observable<{}>{
     const url = `${this.apiServerUrl}/indexbook/add`;
     return this.http.post(url, book, {observe: 'response'});
   }
 
-  demoMethod()
-  {
-    return "Hello World!"
+  public querySearch(simpleQuery: SimpleQuery): Observable<{}>{
+    const url = `${this.apiServerUrl}/search/queryParser`;
+    return this.http.post(url, simpleQuery, {observe: 'response'});
   }
 
 }

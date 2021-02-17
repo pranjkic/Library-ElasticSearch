@@ -36,3 +36,13 @@ export class UploadModelBook{
         this.files = files;
     }
 }
+
+export class SimpleQuery{
+    field: string;
+    value: string;
+
+    constructor(field, value){
+        this.field = field;
+        this.value = value;
+    }
+}

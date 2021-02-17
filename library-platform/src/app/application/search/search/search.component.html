@@ -1,1 +1,44 @@
-<p>search works!</p>
+<div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 first">
+
+                <div class="container">
+                    <div class="row">
+                        <form [formGroup]="querySearchForm" (ngSubmit)="onQuerySearchFormSubmit()">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
+                                <p>Query language</p>
+                                <input type="text" formControlName="query">
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 second">
+                                <p style="color: white;">Query language</p>
+                                <button type="submit">Query search</button>
+                            </div>               
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
+                <div *ngFor = "let result of searchResult">
+                    <p>Title: {{result.title}}</p>
+                    <p>Author: {{result.author}}</p>
+                    <p>Genre: {{result.genre}}</p>
+                    <p>ISBN: {{result.ISBN}}</p>
+                    <p>Key words: {{result.keywords}}</p>
+                    <p>Publisher: {{result.publisher}}</p>
+                    <p>Publishing year: {{result.publishingyear}}</p>
+                    <p>Publishing place: {{result.publishingplace}}</p>
+                    <p>Page number: {{result.pagenumber}}</p>
+                    <p>Sysnopys: {{result.sysnopys}}</p>
+                    <p>Lectoring data: {{result.lectoringdata}}</p>
+                    <p>Directors: {{result.directors}}</p>
+                    <p>Content: {{result.content}}</p>
+                    <p>Location: {{result.location}}</p>
+                </div>
+            </div>               
+        </div>
+    </div>
+</div>

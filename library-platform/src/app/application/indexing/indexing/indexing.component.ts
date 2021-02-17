@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl, Validators } from '@angular/forms';
-import { UploadModelBook } from '../../../model/model';
+//import { UploadModelBook } from '../../../model/model';
 import {LibraryService} from '../../../services/library.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -36,20 +36,20 @@ export class IndexingComponent implements OnInit {
 
   onSubmit(){
 
-    var title = this.indexingForm.get('title').value
-    var author = this.indexingForm.get('author').value
-    var genre = this.indexingForm.get('genre').value
-    var ISBN = this.indexingForm.get('ISBN').value
-    var keyWords = this.indexingForm.get('keyWords').value
-    var publisher = this.indexingForm.get('publisher').value
-    var publishingYear = this.indexingForm.get('publishingYear').value
-    var publishingPlace = this.indexingForm.get('publishingPlace').value
-    var pageNumber = this.indexingForm.get('pageNumber').value
-    var sysnopys = this.indexingForm.get('sysnopys').value
-    var lectoringData = this.indexingForm.get('lectoringData').value
-    var directors = this.indexingForm.get('directors').value
-    var content = this.indexingForm.get('content').value
-    var file = this.indexingForm.get('fileSource').value    
+    // var title = this.indexingForm.get('title').value
+    // var author = this.indexingForm.get('author').value
+    // var genre = this.indexingForm.get('genre').value
+    // var ISBN = this.indexingForm.get('ISBN').value
+    // var keyWords = this.indexingForm.get('keyWords').value
+    // var publisher = this.indexingForm.get('publisher').value
+    // var publishingYear = this.indexingForm.get('publishingYear').value
+    // var publishingPlace = this.indexingForm.get('publishingPlace').value
+    // var pageNumber = this.indexingForm.get('pageNumber').value
+    // var sysnopys = this.indexingForm.get('sysnopys').value
+    // var lectoringData = this.indexingForm.get('lectoringData').value
+    // var directors = this.indexingForm.get('directors').value
+    // var content = this.indexingForm.get('content').value
+    // var file = this.indexingForm.get('fileSource').value    
 
   /*
     var book = new UploadModelBook(title, author, genre, ISBN, keyWords, publisher, publishingYear,
