@@ -13,14 +13,21 @@ import { SimpleQuery } from '../../../model/model';
 export class SearchComponent implements OnInit {
 
   searchResult: Array<any>;
+  allFields: Array<string>;
 
   querySearchForm = new FormGroup({
     query: new FormControl('love'),
   });
 
+  termSearchForm = new FormGroup({
+    field: new FormControl('title'),
+    value: new FormControl(''),
+  });
+
   constructor(private libraryService: LibraryService) {}
 
   ngOnInit(): void {
+    this.loadFields();
   }
 
   onQuerySearchFormSubmit(){
@@ -35,6 +42,30 @@ export class SearchComponent implements OnInit {
         alert(error.message)
       }
     );
+  }
+
+  onTermSearchFormSubmit(){
+    var field = this.termSearchForm.get('field').value;
+    var value = this.termSearchForm.get('value').value;
+    var simpleQuery = new SimpleQuery(field, value);
+    
+    this.libraryService.termSearch(simpleQuery)
+      .subscribe((data) => {        
+        this.searchResult = data["body"];
+        console.log(this.searchResult);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
+  }
+
+  loadFields(){
+    this.allFields = new Array<string>();
+    this.allFields.push("title");
+    this.allFields.push("author");
+    this.allFields.push("content");
+    this.allFields.push("genre");
   }
 
 

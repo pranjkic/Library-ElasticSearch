@@ -1,6 +1,4 @@
 <div>
-
-
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 first">
@@ -19,6 +17,31 @@
                         </form>
                     </div>
                 </div>
+                <br><br>
+                <div class="container">
+                    <form [formGroup]="termSearchForm" (ngSubmit)="onTermSearchFormSubmit()">
+                        <div>
+                            <p>Term query</p>
+                            <select formControlName="field">
+                                <!-- <option selected>Title</option> -->
+                                <option *ngFor="let field of allFields">{{field}}</option>
+                            </select>
+                        </div>
+                        <div class="row">                        
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
+                                <p style="color: white;">Term query</p>
+                                <input type="text" formControlName="value">
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
+                                <p style="color: white;">Query language</p>
+                                <button type="submit">Query search</button>
+                            </div>  
+                        </div>    
+                    </form>                    
+                </div>
+
+
+
             </div>
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">

@@ -47,4 +47,9 @@ export class LibraryService {
     return this.http.post(url, simpleQuery, {observe: 'response'});
   }
 
+  public termSearch(simpleQuery: SimpleQuery): Observable<{}>{
+    const url = `${this.apiServerUrl}/search/term`;
+    return this.http.post(url, simpleQuery, {observe: 'response'});
+  }
+
 }
