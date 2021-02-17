@@ -9,34 +9,56 @@ import java.util.Arrays;
 
 public class UploadModelBook {
 	
-	private String title;	
+	public String title;
 
-	private String author;
+	public String author;
 	
-	private String genre;
+	public String genre;
 	
-	private String ISBN;
+	public String ISBN;
 	
-	private String keywords;
+	public String keywords;
 	
-	private String publisher;
+	public String publisher;
 	
-	private String publishingyear;
+	public String publishingyear;
 	
-	private String publishingplace;
+	public String publishingplace;
 	
-	private String pagenumber;
+	public String pagenumber;
 	
-	private String sysnopys;
+	public String sysnopys;
 	
-	private String lectoringdata;
+	public String lectoringdata;
 	
-	private String directors;
+	public String directors;
 	
-	private String content;
+	public String content;
 	
-	private MultipartFile[] files;
+	public MultipartFile[] files;
+	
+	public MultipartFile[] getFiles() {
+        return files;
+    }
+    public void setFiles(MultipartFile[] files) {
+        this.files = files;
+    }   
+    
+    public String getKeywords() {
+		return keywords;
+	}
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
     @Override
     public String toString() {
         return "UploadModel{" +

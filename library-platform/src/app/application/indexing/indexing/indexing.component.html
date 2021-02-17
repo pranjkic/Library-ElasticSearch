@@ -26,6 +26,8 @@
         <input type="text" formControlName="directors">
         <p>Content</p>
         <input type="text" formControlName="content">
+        <p>Book</p>
+        <input type="file" (change)="onFileChange($event)" formControlName="file">
         <br><br>
         <button type="submit">Submit</button>
     </form>

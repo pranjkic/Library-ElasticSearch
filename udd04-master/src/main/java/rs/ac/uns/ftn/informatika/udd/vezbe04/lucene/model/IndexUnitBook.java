@@ -16,8 +16,8 @@ import lombok.Setter;
 */
 @Document(indexName = IndexUnit.INDEX_NAME, type = IndexUnit.TYPE_NAME, shards = 1, replicas = 0)
 public class IndexUnitBook {
-	public static final String INDEX_NAME = "digitallibrary";
-	public static final String TYPE_NAME = "book";
+	public static final String INDEX_NAME = "digitallbookibrary";
+	public static final String TYPE_NAME = "digitallbook";
 
 	public static final String DATE_PATTERN = "yyyy-MM-dd";
 	
@@ -68,6 +68,28 @@ public class IndexUnitBook {
 	
 	@Field(type = FieldType.Long, index = FieldIndex.analyzed, store = true)
 	private Long internalId;
+	
+	public String getFilename() {
+		return title;
+	}
+	public void setFilename(String filename) {
+		this.title = filename;
+	}
+	
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	/*
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)

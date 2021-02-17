@@ -15,8 +15,11 @@ export class UploadModelBook{
     lectoringdata: string;
     directors: string;        
     content: string;
+    files: File;
 
-    constructor(title, author, genre, ISBN, keyWords, publisher, publishingYear, publishingPlace, pageNumber, sysnopys, lectoringData, directors, content){
+    constructor(title, author, genre, ISBN, keyWords, publisher, publishingYear, publishingPlace, 
+                pageNumber, sysnopys, lectoringData, directors, content, files){
+
         this.title = title;
         this.author = author;
         this.genre = genre;
@@ -30,5 +33,6 @@ export class UploadModelBook{
         this.lectoringdata = lectoringData;
         this.directors = directors;
         this.content = content;
+        this.files = files;
     }
 }

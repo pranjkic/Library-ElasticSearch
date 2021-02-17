@@ -37,11 +37,12 @@ export class LibraryService {
     return result;
   }
 
-  public indexBook(book: UploadModelBook): Observable<{}>{
+  //public indexBook(book: UploadModelBook): Observable<{}>{
+  public indexBook(book: FormData): Observable<{}>{
     const url = `${this.apiServerUrl}/indexbook/add`;
     return this.http.post(url, book, {observe: 'response'});
   }
-  
+
   demoMethod()
   {
     return "Hello World!"
