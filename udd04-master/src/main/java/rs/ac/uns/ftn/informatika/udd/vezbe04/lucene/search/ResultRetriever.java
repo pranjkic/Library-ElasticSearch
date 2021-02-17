@@ -42,8 +42,28 @@ public class ResultRetriever {
        
         List<IndexUnit> indexUnits = template.queryForList(searchQuery, IndexUnit.class);
 
+        /*for (IndexUnit indexUnit : indexUnits) {
+        	results.add(new ResultData(indexUnit.getTitle(), 
+        							   indexUnit.getKeywords(), 
+        							   indexUnit.getFilename(),
+        							   ""));*/
+        
         for (IndexUnit indexUnit : indexUnits) {
-        	results.add(new ResultData(indexUnit.getTitle(), indexUnit.getKeywords(), indexUnit.getFilename(), ""));
+        	results.add(new ResultData(indexUnit.getTitle(), 
+        							   indexUnit.getAuthor(),
+        							   indexUnit.getGenre(),
+        							   indexUnit.getISBN(),
+        							   indexUnit.getKeywords(), 
+        							   indexUnit.getPublisher(),
+        							   indexUnit.getPublishingyear(),
+        							   indexUnit.getPublishingplace(),
+        							   indexUnit.getpagenumber(),
+        							   indexUnit.getsysnopys(),
+        							   indexUnit.getlectoringdata(),
+        							   indexUnit.getDirectors(),
+        							   indexUnit.getContent(),
+        							   indexUnit.getFilename(),
+        							   ""));
 		}
         
 		

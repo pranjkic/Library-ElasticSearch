@@ -11,8 +11,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Document(indexName = IndexUnit.INDEX_NAME, type = IndexUnit.TYPE_NAME, shards = 1, replicas = 0)
 public class IndexUnit {
-	public static final String INDEX_NAME = "digitallbookibrary";
-	public static final String TYPE_NAME = "digitallbook";
+	public static final String INDEX_NAME = "digitallibrary";
+	public static final String TYPE_NAME = "book";
 
 	public static final String DATE_PATTERN = "yyyy-MM-dd";
 	
