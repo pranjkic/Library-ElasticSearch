@@ -69,20 +69,23 @@
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
                 <div *ngFor = "let result of searchResult">
-                    <p>Title: {{result.title}}</p>
-                    <p>Author: {{result.author}}</p>
-                    <p>Genre: {{result.genre}}</p>
-                    <p>ISBN: {{result.ISBN}}</p>
-                    <p>Key words: {{result.keywords}}</p>
-                    <p>Publisher: {{result.publisher}}</p>
-                    <p>Publishing year: {{result.publishingyear}}</p>
-                    <p>Publishing place: {{result.publishingplace}}</p>
-                    <p>Page number: {{result.pagenumber}}</p>
-                    <p>Sysnopys: {{result.sysnopys}}</p>
-                    <p>Lectoring data: {{result.lectoringdata}}</p>
-                    <p>Directors: {{result.directors}}</p>
-                    <p>Content: {{result.content}}</p>
-                    <p>Location: {{result.location}}</p>
+                    <div>
+                        <p>Title: {{result.title}}</p>
+                        <p>Author: {{result.author}}</p>
+                        <p>Genre: {{result.genre}}</p>
+                        <p>ISBN: {{result.ISBN}}</p>
+                        <p>Key words: {{result.keywords}}</p>
+                        <p>Publisher: {{result.publisher}}</p>
+                        <p>Publishing year: {{result.publishingyear}}</p>
+                        <p>Publishing place: {{result.publishingplace}}</p>
+                        <p>Page number: {{result.pagenumber}}</p>
+                        <p>Sysnopys: {{result.sysnopys}}</p>
+                        <p>Lectoring data: {{result.lectoringdata}}</p>
+                        <p>Directors: {{result.directors}}</p>
+                        <p>Content: {{result.content}}</p>
+                        <p>Location: {{result.location}}</p>
+                        <button (click)="download(result.location, result.title)">Download</button>
+                    </div>
                 </div>
             </div>               
         </div>

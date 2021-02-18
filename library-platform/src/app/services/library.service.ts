@@ -57,4 +57,9 @@ export class LibraryService {
     return this.http.post(url, simpleQuery, {observe: 'response'});
   }
 
+  download(filename: string) {
+    const url = `${this.apiServerUrl}/download/${filename}`;
+    return this.http.get(url, {responseType: 'blob' })
+  }
+
 }

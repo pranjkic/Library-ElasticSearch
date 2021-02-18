@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {LibraryService} from '../../../services/library.service'
 import {FormGroup, FormControl, Validators } from '@angular/forms';
 import { SimpleQuery, AdvancedQuery } from '../../../model/model';
-
+import { saveAs as importedSaveAs } from 'file-saver';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
 
   searchResult: Array<any>;
   allFields = ['title', 'author', 'content', 'genre'];
-  operations = ['and', 'or', 'not'];
+  operations = ['and', 'or'];
 
   querySearchForm = new FormGroup({
     query: new FormControl('love'),
@@ -87,6 +87,12 @@ export class SearchComponent implements OnInit {
         alert(error.message)
       }
     );
+  }
+
+  download(filename: string, title: string){
+    this.libraryService.download(filename).subscribe(blob => {
+      importedSaveAs(blob, title);
+    });
   }
 
 
