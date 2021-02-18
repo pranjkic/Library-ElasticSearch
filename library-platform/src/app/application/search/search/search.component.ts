@@ -89,12 +89,27 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  download(filename: string, title: string){
-    this.libraryService.download(filename).subscribe(blob => {
-      importedSaveAs(blob, title);
-    });
-  }
+  downloadPDF(filename: string){
+    this.libraryService.downloadPDF(filename)
+    .subscribe(
+      (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' })
+        var fileURL = URL.createObjectURL(file);
 
+    // if you want to open PDF in new tab
+        window.open(fileURL); 
+        var a         = document.createElement('a');
+        a.href        = fileURL; 
+        a.target      = '_blank';
+        a.download    = 'Download.pdf';
+        document.body.appendChild(a);
+        a.click();
+      },
+      (error) => {
+        console.log('getPDF error: ',error);
+      }
+    );
+  }
 
 
 

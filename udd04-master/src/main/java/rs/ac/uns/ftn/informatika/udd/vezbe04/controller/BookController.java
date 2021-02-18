@@ -3,6 +3,7 @@ package rs.ac.uns.ftn.informatika.udd.vezbe04.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -12,9 +13,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +83,9 @@ public class BookController {
             String fileName = saveUploadedFile(file);
             if(fileName != null){
             	IndexUnit indexUnit = indexer.getHandler(fileName).getIndexUnit(new File(fileName));
+            	            	
+            	//iBookRepository.save(fileName);
+            	
             	indexUnit.setTitle(model.getTitle());
             	indexUnit.setAuthor(model.getAuthor());
             	indexUnit.setGenre(model.getGenre());
@@ -91,7 +100,7 @@ public class BookController {
             	indexUnit.setDirectors(model.getDirectors());
             	indexUnit.setContent(model.getContent());
             	indexUnit.setFilename(fileName);
-            	indexer.add(indexUnit);
+            	indexer.add(indexUnit);            	
             }
     	}
     }
@@ -172,4 +181,38 @@ public class BookController {
 		return bytesArray;
 
 	}
+	
+	@GetMapping(path = "/generatepdf/{filename}")
+    public void generatePdf(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response) {
+		filename = "C:\\Users\\Milica\\Desktop\\Master\\UDD\\Library-ElasticSearch\\udd04-master\\target\\classes\\files\\Literarno.pdf";
+		if (filename != null) {
+	           try {
+	               File file = new File(filename);
+	               FileInputStream is = new FileInputStream(file);
+	               response.setContentType("application/blob");
+	
+	               // Response header
+	               response.setHeader("Pragma", "public");
+	               response.setHeader("responseType", "blob");
+	               response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+	
+	               // Read from the file and write into the response
+	               OutputStream os = response.getOutputStream();
+	               System.out.println(os);
+	               byte[] buffer = new byte[(int) file.length()];
+	
+	               int len;
+	               while ((len = is.read(buffer)) != -1) {
+	                   os.write(buffer, 0, len);
+	               }
+	
+	               System.out.println(os);
+	               os.flush();
+	               os.close();
+	               is.close();
+	           } catch (IOException e) {
+	               e.printStackTrace();
+	           }
+	       }
+	}	
 }
