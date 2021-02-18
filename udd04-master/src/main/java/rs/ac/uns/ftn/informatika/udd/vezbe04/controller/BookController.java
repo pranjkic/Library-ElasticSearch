@@ -138,19 +138,10 @@ public class BookController {
 	    }   
 	    return file;
 	}
-    
+    /*
     @RequestMapping(value = "/download/{filename}", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> downloadBook(@PathVariable String filename) throws IOException {
-		/*
-		Book book = iBookRepository.findOne(id);
 
-		if (book == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		}
-		
-
-		File pdf = new File(book.getFilename());
-		*/
 		File pdf = new File(filename);
 		FileSystemResource fileResource = new FileSystemResource(pdf);
 
@@ -159,7 +150,6 @@ public class BookController {
 		headers.add("filename", fileResource.getFilename());
 
 		// convert file to byte[]
-		//byte[] bFile = readBytesFromFile(book.getFilename());
 		byte[] bFile = readBytesFromFile(filename);
 
 		return new ResponseEntity<byte[]>(bFile, headers, HttpStatus.OK);
@@ -192,7 +182,7 @@ public class BookController {
 		return bytesArray;
 
 	}
-	
+	*/
 	@Autowired
 	private ResultRetriever resultRetriever;
 	

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.indexing.filters.CyrillicLatinConverter;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.AdvancedQuery;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.RequiredHighlight;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.ResultData;
@@ -27,7 +28,10 @@ public class SearchController {
 		private ResultRetriever resultRetriever;
 	
 		@PostMapping(value="/search/term", consumes="application/json")
-		public ResponseEntity<List<ResultData>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {		
+		public ResponseEntity<List<ResultData>> searchTermQuery(@RequestBody SimpleQuery simpleQuery) throws Exception {	
+			
+			simpleQuery.setValue(ParseQuery(simpleQuery.getValue()));
+			
 			org.elasticsearch.index.query.QueryBuilder query= QueryBuilder.buildQuery(SearchType.regular, simpleQuery.getField(), simpleQuery.getValue());
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			rh.add(new RequiredHighlight(simpleQuery.getField(), simpleQuery.getValue()));
@@ -73,6 +77,10 @@ public class SearchController {
 		
 		@PostMapping(value="/search/boolean", consumes="application/json")
 		public ResponseEntity<List<ResultData>> searchBoolean(@RequestBody AdvancedQuery advancedQuery) throws Exception {
+			
+			advancedQuery.setValue1(ParseQuery(advancedQuery.getValue1()));
+			advancedQuery.setValue2(ParseQuery(advancedQuery.getValue2()));
+			
 			org.elasticsearch.index.query.QueryBuilder query1 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField1(), advancedQuery.getValue1());
 			org.elasticsearch.index.query.QueryBuilder query2 = QueryBuilder.buildQuery(SearchType.regular, advancedQuery.getField2(), advancedQuery.getValue2());
 			
@@ -97,12 +105,20 @@ public class SearchController {
 		
 		@PostMapping(value="/search/queryParser", consumes="application/json")
 		public ResponseEntity<List<ResultData>> search(@RequestBody SimpleQuery simpleQuery) throws Exception {
+			
+			simpleQuery.setValue(ParseQuery(simpleQuery.getValue()));
+			
 			org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
 			List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
 			List<ResultData> results = resultRetriever.getResults(query, rh);
 			return new ResponseEntity<List<ResultData>>(results, HttpStatus.OK);
 		}
 	
+		private String ParseQuery(String query) {
+			String parsedQuery = query.toLowerCase();
+			parsedQuery = CyrillicLatinConverter.cir2lat(parsedQuery);
+			return parsedQuery;
+		}
 		
 	
 }

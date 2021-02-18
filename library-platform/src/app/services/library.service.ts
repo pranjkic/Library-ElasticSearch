@@ -59,8 +59,6 @@ export class LibraryService {
 
   downloadPDF(internalId : string): Observable<Blob>
   {
-      //filename = "flnm";
-      //const url = this.apiServerUrl + '/generatepdf/'+ filename;
       const url = `${this.apiServerUrl}/generatepdf/${internalId}`;
       alert(url);
       const headers = new HttpHeaders({ 'Content-Type': 'application/json', responseType : 'blob'});
