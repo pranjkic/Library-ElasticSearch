@@ -3,8 +3,13 @@ package rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.text.Text;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.SearchResultMapper;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
@@ -67,8 +72,37 @@ public class ResultRetriever {
         							   ""));
 		}
         
+        //if (requiredHighlights.get(0).getFieldName() != null && results.size() != 0) {
+			//mapHighlightedContent(searchQuery, results);
+		//}
 		
 		return results;
+	}
+	
+	private void mapHighlightedContent(SearchQuery searchQuery, final List<ResultData> books) {
+		template.queryForPage(searchQuery, IndexUnit.class, new SearchResultMapper() {
+
+			public <T> AggregatedPage<T> mapResults(SearchResponse searchResponse, Class<T> aClass, Pageable pageable) {
+				//for (int i = 0; i < searchResponse.getHits().totalHits(); i++) {
+				for (int i = 0; i < books.size(); i++) {
+					if (searchResponse.getHits().getHits().length <= 0) {
+						return null;
+					}
+					String highlight = "";
+					if (searchResponse.getHits().getAt(i).getHighlightFields() != null) {
+						for (Text s : searchResponse.getHits()
+								.getAt(i)
+								.getHighlightFields()
+								.get("text")
+								.getFragments()) {
+							highlight += s.string();
+						}
+					}
+					books.get(i).setHighlight(highlight);
+				}
+				return null;
+			}
+		});
 	}
 	
 	protected DocumentHandler getHandler(String fileName){

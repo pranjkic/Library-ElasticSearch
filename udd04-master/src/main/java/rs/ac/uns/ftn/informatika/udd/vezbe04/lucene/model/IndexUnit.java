@@ -72,9 +72,18 @@ public class IndexUnit {
 	@Id
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
 	private String filename;
+	/*
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String highlight;
 	
-	
-	
+	public String getHighlight() {
+		return highlight;
+	}
+
+	public void setHighlight(String highlight) {
+		this.highlight = highlight;
+	}*/
+		
 	public String getInternalId() {
 		return internalId;
 	}

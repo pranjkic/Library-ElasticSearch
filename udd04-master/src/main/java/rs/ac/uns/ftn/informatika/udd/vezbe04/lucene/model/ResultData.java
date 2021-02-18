@@ -19,6 +19,7 @@ public final class ResultData {
 	private String directors;	
 	private String content;
 	private String internalId;
+	private String text;
 	
 	public ResultData() {
 		super();
@@ -52,6 +53,10 @@ public final class ResultData {
 		this.content = content;
 		this.location = location;
 		this.highlight = highlight;
+	}
+	
+	public String getText() {
+		return text;
 	}
 	
 	public String getInternalId() {
