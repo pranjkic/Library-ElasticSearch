@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {LibraryService} from '../../../services/library.service'
 import {FormGroup, FormControl, Validators } from '@angular/forms';
-import { SimpleQuery } from '../../../model/model';
+import { SimpleQuery, AdvancedQuery } from '../../../model/model';
 
 
 @Component({
@@ -13,7 +13,8 @@ import { SimpleQuery } from '../../../model/model';
 export class SearchComponent implements OnInit {
 
   searchResult: Array<any>;
-  allFields: Array<string>;
+  allFields = ['title', 'author', 'content', 'genre'];
+  operations = ['and', 'or', 'not'];
 
   querySearchForm = new FormGroup({
     query: new FormControl('love'),
@@ -24,10 +25,17 @@ export class SearchComponent implements OnInit {
     value: new FormControl(''),
   });
 
+  booleanQuerySearchForm = new FormGroup({
+    field1: new FormControl('title'),
+    value1: new FormControl(''),
+    field2: new FormControl('title'),
+    value2: new FormControl(''),
+    operation: new FormControl('and'),
+  });
+
   constructor(private libraryService: LibraryService) {}
 
   ngOnInit(): void {
-    this.loadFields();
   }
 
   onQuerySearchFormSubmit(){
@@ -60,12 +68,25 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  loadFields(){
-    this.allFields = new Array<string>();
-    this.allFields.push("title");
-    this.allFields.push("author");
-    this.allFields.push("content");
-    this.allFields.push("genre");
+  onBooleanQuerySearchFormSubmit(){
+    var field1 = this.booleanQuerySearchForm.get('field1').value;
+    var value1 = this.booleanQuerySearchForm.get('value1').value;
+    var field2 = this.booleanQuerySearchForm.get('field2').value;
+    var value2 = this.booleanQuerySearchForm.get('value2').value;
+    var operation = this.booleanQuerySearchForm.get('operation').value;
+
+    var advancedQuery = new AdvancedQuery(field1, value1, field2, value2, operation);
+    console.log(advancedQuery)
+
+    this.libraryService.booleanQuerySearch(advancedQuery)
+      .subscribe((data) => {        
+        this.searchResult = data["body"];
+        console.log(this.searchResult);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    );
   }
 
 

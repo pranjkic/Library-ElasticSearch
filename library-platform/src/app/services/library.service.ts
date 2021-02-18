@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UploadModelBook, SimpleQuery } from '../model/model'
+import { UploadModelBook, SimpleQuery, AdvancedQuery } from '../model/model'
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'text/plain;charset=UTF-8','responseType': 'applicatison/json'  })
@@ -49,6 +49,11 @@ export class LibraryService {
 
   public termSearch(simpleQuery: SimpleQuery): Observable<{}>{
     const url = `${this.apiServerUrl}/search/term`;
+    return this.http.post(url, simpleQuery, {observe: 'response'});
+  }
+
+  public booleanQuerySearch(simpleQuery: AdvancedQuery): Observable<{}>{
+    const url = `${this.apiServerUrl}/search/boolean`;
     return this.http.post(url, simpleQuery, {observe: 'response'});
   }
 

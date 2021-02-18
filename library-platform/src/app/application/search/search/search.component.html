@@ -8,7 +8,7 @@
                         <form [formGroup]="querySearchForm" (ngSubmit)="onQuerySearchFormSubmit()">
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
                                 <p>Query language</p>
-                                <input type="text" formControlName="query">
+                                <input type="text" formControlName="query" placeholder="query">
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 second">
                                 <p style="color: white;">Query language</p>
@@ -23,20 +23,43 @@
                         <div>
                             <p>Term query</p>
                             <select formControlName="field">
-                                <!-- <option selected>Title</option> -->
                                 <option *ngFor="let field of allFields">{{field}}</option>
                             </select>
                         </div>
                         <div class="row">                        
                             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
                                 <p style="color: white;">Term query</p>
-                                <input type="text" formControlName="value">
+                                <input type="text" formControlName="value" placeholder="value">
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
                                 <p style="color: white;">Query language</p>
-                                <button type="submit">Query search</button>
+                                <button type="submit">Term search</button>
                             </div>  
                         </div>    
+                    </form>                    
+                </div>
+                <br><br>
+                <div class="container">
+                    <form [formGroup]="booleanQuerySearchForm" (ngSubmit)="onBooleanQuerySearchFormSubmit()">
+                        <p>Boolean query</p>                     
+                        <select formControlName="field1">
+                            <option *ngFor="let field of allFields">{{field}}</option>
+                        </select>
+                        <input type="text" formControlName="value1" placeholder="value1">   
+                        <div>                            
+                            <select formControlName="operation">
+                                <option *ngFor="let operation of operations">{{operation}}</option>
+                            </select>
+                        </div>                        
+                        <div>
+                            <select formControlName="field2">
+                                <option *ngFor="let field of allFields">{{field}}</option>
+                            </select>
+                            <input type="text" formControlName="value2" placeholder="value2">
+                        </div>
+                        <div>
+                            <button type="submit">Boolean query search</button>
+                        </div>  
                     </form>                    
                 </div>
 
