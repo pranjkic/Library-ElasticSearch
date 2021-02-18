@@ -62,8 +62,8 @@ public class IndexUnit {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
 	private String filedate;
 	
-	@Field(type = FieldType.Long, index = FieldIndex.analyzed, store = true)
-	private Long internalId;
+	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
+	private String internalId;
 	
 	//addition
 	@Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
@@ -72,6 +72,16 @@ public class IndexUnit {
 	@Id
 	@Field(type = FieldType.String, index = FieldIndex.not_analyzed, store = true)
 	private String filename;
+	
+	
+	
+	public String getInternalId() {
+		return internalId;
+	}
+	public void setInternalId(String internalId) {
+		this.internalId = internalId;
+	}	
+	
 	
 	public String getText() {
 		return text;

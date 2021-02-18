@@ -49,7 +49,8 @@ public class ResultRetriever {
         							   ""));*/
         
         for (IndexUnit indexUnit : indexUnits) {
-        	results.add(new ResultData(indexUnit.getTitle(), 
+        	results.add(new ResultData(indexUnit.getInternalId(),
+        							   indexUnit.getTitle(), 
         							   indexUnit.getAuthor(),
         							   indexUnit.getGenre(),
         							   indexUnit.getISBN(),

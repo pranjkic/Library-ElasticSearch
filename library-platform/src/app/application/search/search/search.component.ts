@@ -21,8 +21,8 @@ export class SearchComponent implements OnInit {
   });
 
   termSearchForm = new FormGroup({
-    field: new FormControl('title'),
-    value: new FormControl(''),
+    field: new FormControl('internalId'),
+    value: new FormControl('81d00f06-e366-437b-8c45-a137368c69ba'),
   });
 
   booleanQuerySearchForm = new FormGroup({
@@ -56,6 +56,7 @@ export class SearchComponent implements OnInit {
     var field = this.termSearchForm.get('field').value;
     var value = this.termSearchForm.get('value').value;
     var simpleQuery = new SimpleQuery(field, value);
+    console.log(simpleQuery)
     
     this.libraryService.termSearch(simpleQuery)
       .subscribe((data) => {        
@@ -89,8 +90,8 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  downloadPDF(filename: string){
-    this.libraryService.downloadPDF(filename)
+  downloadPDF(internalId: string, title: string){
+    this.libraryService.downloadPDF(internalId)
     .subscribe(
       (data: Blob) => {
         var file = new Blob([data], { type: 'application/pdf' })
@@ -101,7 +102,7 @@ export class SearchComponent implements OnInit {
         var a         = document.createElement('a');
         a.href        = fileURL; 
         a.target      = '_blank';
-        a.download    = 'Download.pdf';
+        a.download    = title + ".pdf";
         document.body.appendChild(a);
         a.click();
       },

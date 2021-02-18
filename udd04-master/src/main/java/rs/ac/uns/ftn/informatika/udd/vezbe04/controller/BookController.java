@@ -9,8 +9,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.UUID;
@@ -18,6 +20,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -44,8 +47,14 @@ import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.indexing.Indexer;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.indexing.IndexerBook;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.IndexUnit;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.IndexUnitBook;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.RequiredHighlight;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.ResultData;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.SearchType;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.SimpleQuery;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.UploadModel;
 import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.model.UploadModelBook;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.search.QueryBuilder;
+import rs.ac.uns.ftn.informatika.udd.vezbe04.lucene.search.ResultRetriever;
 
 @RestController
 public class BookController {
@@ -84,7 +93,8 @@ public class BookController {
             if(fileName != null){
             	IndexUnit indexUnit = indexer.getHandler(fileName).getIndexUnit(new File(fileName));
             	            	
-            	//iBookRepository.save(fileName);
+            	UUID uuid = UUID.randomUUID();
+            	String internalID = uuid.toString();
             	
             	indexUnit.setTitle(model.getTitle());
             	indexUnit.setAuthor(model.getAuthor());
@@ -100,6 +110,7 @@ public class BookController {
             	indexUnit.setDirectors(model.getDirectors());
             	indexUnit.setContent(model.getContent());
             	indexUnit.setFilename(fileName);
+            	indexUnit.setInternalId(internalID);
             	indexer.add(indexUnit);            	
             }
     	}
@@ -182,19 +193,31 @@ public class BookController {
 
 	}
 	
+	@Autowired
+	private ResultRetriever resultRetriever;
+	
 	@GetMapping(path = "/generatepdf/{filename}")
-    public void generatePdf(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response) {
-		filename = "C:\\Users\\Milica\\Desktop\\Master\\UDD\\Library-ElasticSearch\\udd04-master\\target\\classes\\files\\Literarno.pdf";
-		if (filename != null) {
+    public void generatePdf(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response)throws Exception {	
+		
+		SimpleQuery simpleQuery = new SimpleQuery();
+		simpleQuery.setField(null);
+		simpleQuery.setValue(filename);
+		org.elasticsearch.index.query.QueryBuilder query=QueryBuilders.queryStringQuery(simpleQuery.getValue());			
+		List<RequiredHighlight> rh = new ArrayList<RequiredHighlight>();
+		List<ResultData> results = resultRetriever.getResults(query, rh);
+		
+		String filePath = results.get(0).getLocation();
+		
+		if (filePath != null) {
 	           try {
-	               File file = new File(filename);
+	               File file = new File(filePath);
 	               FileInputStream is = new FileInputStream(file);
 	               response.setContentType("application/blob");
 	
 	               // Response header
 	               response.setHeader("Pragma", "public");
 	               response.setHeader("responseType", "blob");
-	               response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+	               response.setHeader("Content-Disposition", "attachment; filename=\"" + filePath + "\"");
 	
 	               // Read from the file and write into the response
 	               OutputStream os = response.getOutputStream();

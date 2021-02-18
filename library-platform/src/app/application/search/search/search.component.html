@@ -84,7 +84,7 @@
                         <p>Directors: {{result.directors}}</p>
                         <p>Content: {{result.content}}</p>
                         <p>Location: {{result.location}}</p>
-                        <button (click)="downloadPDF(result.location)">Download</button>
+                        <button (click)="downloadPDF(result.internalId, result.title)">Download</button>
                     </div>
                 </div>
             </div>               

@@ -18,6 +18,7 @@ public final class ResultData {
 	private String lectoringdata;	
 	private String directors;	
 	private String content;
+	private String internalId;
 	
 	public ResultData() {
 		super();
@@ -31,10 +32,11 @@ public final class ResultData {
 		this.highlight = highlight;
 	}
 	
-	public ResultData(String title, String author, String genre, String ISBN, String keywords, String publisher,
+	public ResultData(String internalID, String title, String author, String genre, String ISBN, String keywords, String publisher,
 			String publishingyear, String publishingplace, String pagenumber, String sysnopys, String lectoringdata,
 			String directors, String content, String location, String highlight) {
 		super();
+		this.internalId = internalID;
 		this.title = title;
 		this.author = author;
 		this.genre = genre;
@@ -50,6 +52,13 @@ public final class ResultData {
 		this.content = content;
 		this.location = location;
 		this.highlight = highlight;
+	}
+	
+	public String getInternalId() {
+		return internalId;
+	}
+	public void setInternalId(String internalId) {
+		this.internalId = internalId;
 	}
 
 	public String getTitle() {

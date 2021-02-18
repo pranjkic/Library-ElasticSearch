@@ -57,11 +57,11 @@ export class LibraryService {
     return this.http.post(url, simpleQuery, {observe: 'response'});
   }
 
-  downloadPDF(filename : string): Observable<Blob>
+  downloadPDF(internalId : string): Observable<Blob>
   {
-      filename = "flnm";
+      //filename = "flnm";
       //const url = this.apiServerUrl + '/generatepdf/'+ filename;
-      const url = `${this.apiServerUrl}/generatepdf/${filename}`;
+      const url = `${this.apiServerUrl}/generatepdf/${internalId}`;
       alert(url);
       const headers = new HttpHeaders({ 'Content-Type': 'application/json', responseType : 'blob'});
       return this.http.get<Blob>(url, { headers : headers,responseType : 'blob' as 'json'});
