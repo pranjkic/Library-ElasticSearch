@@ -12,19 +12,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class IndexingComponent implements OnInit {
 
   indexingForm = new FormGroup({
-    title: new FormControl('title'),
-    author: new FormControl('author'),
-    genre: new FormControl('genre'),
-    ISBN: new FormControl('isbn'),
-    keyWords: new FormControl('kw'),
-    publisher: new FormControl('publisher'),
-    publishingYear: new FormControl('1995'),
-    publishingPlace: new FormControl('srbija'), 
-    pageNumber: new FormControl('55'),    
-    sysnopys: new FormControl('syno'),       
-    lectoringData: new FormControl('ld'),
-    directors: new FormControl('director'),        
-    content: new FormControl('content'),
+    title: new FormControl('', [Validators.required]),
+    author: new FormControl('', [Validators.required]),
+    genre: new FormControl('', [Validators.required]),
+    ISBN: new FormControl('', [Validators.required]),
+    keyWords: new FormControl('', [Validators.required]),
+    publisher: new FormControl('', [Validators.required]),
+    publishingYear: new FormControl('', [Validators.required]),
+    publishingPlace: new FormControl('', [Validators.required]), 
+    pageNumber: new FormControl('', [Validators.required]),    
+    sysnopys: new FormControl('', [Validators.required]),       
+    lectoringData: new FormControl('', [Validators.required]),
+    directors: new FormControl('', [Validators.required]),        
+    content: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
     fileSource: new FormControl('', [Validators.required]),
   });
@@ -34,38 +34,7 @@ export class IndexingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(){
-
-    // var title = this.indexingForm.get('title').value
-    // var author = this.indexingForm.get('author').value
-    // var genre = this.indexingForm.get('genre').value
-    // var ISBN = this.indexingForm.get('ISBN').value
-    // var keyWords = this.indexingForm.get('keyWords').value
-    // var publisher = this.indexingForm.get('publisher').value
-    // var publishingYear = this.indexingForm.get('publishingYear').value
-    // var publishingPlace = this.indexingForm.get('publishingPlace').value
-    // var pageNumber = this.indexingForm.get('pageNumber').value
-    // var sysnopys = this.indexingForm.get('sysnopys').value
-    // var lectoringData = this.indexingForm.get('lectoringData').value
-    // var directors = this.indexingForm.get('directors').value
-    // var content = this.indexingForm.get('content').value
-    // var file = this.indexingForm.get('fileSource').value    
-
-  /*
-    var book = new UploadModelBook(title, author, genre, ISBN, keyWords, publisher, publishingYear,
-                publishingPlace, pageNumber, sysnopys, lectoringData, directors, content, file)
-
-    this.libraryService.indexBook(book)
-      .subscribe((data) => {
-        console.log(data);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message)
-      }
-    );
-    console.log(book.files)
-    console.log("Submit")
-    */    
+  onSubmit(){    
     const formData = new FormData();
     formData.append('title', this.indexingForm.get('title').value);
     formData.append('author', this.indexingForm.get('author').value);
@@ -73,7 +42,7 @@ export class IndexingComponent implements OnInit {
     formData.append('ISBN', this.indexingForm.get('ISBN').value);
     formData.append('keywords', this.indexingForm.get('keyWords').value);
     formData.append('publisher', this.indexingForm.get('publisher').value);
-   
+    
     formData.append('pagenumber', this.indexingForm.get('pageNumber').value);
     formData.append('sysnopys', this.indexingForm.get('sysnopys').value);
     formData.append('lectoringdata', this.indexingForm.get('lectoringData').value);
@@ -81,21 +50,19 @@ export class IndexingComponent implements OnInit {
     formData.append('publishingplace', this.indexingForm.get('publishingPlace').value);
     formData.append('directors', this.indexingForm.get('directors').value);
     formData.append('content', this.indexingForm.get('content').value);
-    formData.append('files', this.indexingForm.get('fileSource').value);    
-
-    console.log(formData.get('publishingyear'))
-
+    formData.append('files', this.indexingForm.get('fileSource').value);   
+    
     this.libraryService.indexBook(formData)
       .subscribe((data) => {
         console.log(data);
+        alert("Successfully indexed!");
+        this.indexingForm.reset();
       },
       (error: HttpErrorResponse) => {
         alert(error.message)
       }
     );
-
-
-
+    
   }
 
   onFileChange(event) {

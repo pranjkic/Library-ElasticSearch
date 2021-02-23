@@ -17,19 +17,19 @@ export class SearchComponent implements OnInit {
   operations = ['and', 'or'];
 
   querySearchForm = new FormGroup({
-    query: new FormControl('love'),
+    query: new FormControl('education', [Validators.required]),
   });
 
   termSearchForm = new FormGroup({
-    field: new FormControl('internalId'),
-    value: new FormControl('81d00f06-e366-437b-8c45-a137368c69ba'),
+    field: new FormControl('title'),
+    value: new FormControl('', [Validators.required]),
   });
 
   booleanQuerySearchForm = new FormGroup({
     field1: new FormControl('title'),
-    value1: new FormControl(''),
+    value1: new FormControl('', [Validators.required]),
     field2: new FormControl('title'),
-    value2: new FormControl(''),
+    value2: new FormControl('', [Validators.required]),
     operation: new FormControl('and'),
   });
 
@@ -98,7 +98,7 @@ export class SearchComponent implements OnInit {
         var fileURL = URL.createObjectURL(file);
 
     // if you want to open PDF in new tab
-        window.open(fileURL); 
+        //window.open(fileURL); 
         var a         = document.createElement('a');
         a.href        = fileURL; 
         a.target      = '_blank';
@@ -111,21 +111,4 @@ export class SearchComponent implements OnInit {
       }
     );
   }
-
-
-
-
-  
-  // public getSomething(): void{
-  //    this.libraryService.getSomething()
-  //   .subscribe((response) => {
-  //       this.something = response['response'];
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       alert(error.message)
-  //       //console.log(error.message)
-  //     }
-  //   );
-  // }
-
 }

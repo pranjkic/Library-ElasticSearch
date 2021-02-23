@@ -2,90 +2,102 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 first">
-
-                <div class="container">
-                    <div class="row">
-                        <form [formGroup]="querySearchForm" (ngSubmit)="onQuerySearchFormSubmit()">
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
-                                <p>Query language</p>
-                                <input type="text" formControlName="query" placeholder="query">
+                <mat-card class="example-card">  
+                    <mat-card-content> 
+                        <div class="container">
+                            <div class="row">
+                                <form [formGroup]="querySearchForm" (ngSubmit)="onQuerySearchFormSubmit()">
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
+                                        <p>Query language</p>
+                                        <input type="text" formControlName="query" placeholder="query">
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 second">
+                                        <p style="color: white;">Query language</p>
+                                        <button [disabled]="!querySearchForm.valid" type="submit">Query search</button>
+                                    </div>               
+                                </form>
                             </div>
-                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 second">
-                                <p style="color: white;">Query language</p>
-                                <button type="submit">Query search</button>
-                            </div>               
-                        </form>
-                    </div>
-                </div>
-                <br><br>
-                <div class="container">
-                    <form [formGroup]="termSearchForm" (ngSubmit)="onTermSearchFormSubmit()">
-                        <div>
-                            <p>Term query</p>
-                            <select formControlName="field">
-                                <option *ngFor="let field of allFields">{{field}}</option>
-                            </select>
                         </div>
-                        <div class="row">                        
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
-                                <p style="color: white;">Term query</p>
-                                <input type="text" formControlName="value" placeholder="value">
-                            </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
-                                <p style="color: white;">Query language</p>
-                                <button type="submit">Term search</button>
-                            </div>  
-                        </div>    
-                    </form>                    
-                </div>
+                    </mat-card-content> 
+                </mat-card>
                 <br><br>
-                <div class="container">
-                    <form [formGroup]="booleanQuerySearchForm" (ngSubmit)="onBooleanQuerySearchFormSubmit()">
-                        <p>Boolean query</p>                     
-                        <select formControlName="field1">
-                            <option *ngFor="let field of allFields">{{field}}</option>
-                        </select>
-                        <input type="text" formControlName="value1" placeholder="value1">   
-                        <div>                            
-                            <select formControlName="operation">
-                                <option *ngFor="let operation of operations">{{operation}}</option>
-                            </select>
-                        </div>                        
-                        <div>
-                            <select formControlName="field2">
-                                <option *ngFor="let field of allFields">{{field}}</option>
-                            </select>
-                            <input type="text" formControlName="value2" placeholder="value2">
+                <mat-card class="example-card">  
+                    <mat-card-content> 
+                        <div class="container">
+                            <form [formGroup]="termSearchForm" (ngSubmit)="onTermSearchFormSubmit()">
+                                <div>
+                                    <p>Term query</p>
+                                    <select formControlName="field">
+                                        <option *ngFor="let field of allFields">{{field}}</option>
+                                    </select>
+                                </div>
+                                <div class="row">                        
+                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 first">
+                                        <p style="color: white;">Term query</p>
+                                        <input type="text" formControlName="value" placeholder="value">
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
+                                        <p style="color: white;">Query language</p>
+                                        <button [disabled]="!termSearchForm.valid" type="submit">Term search</button>
+                                    </div>  
+                                </div>    
+                            </form>                    
                         </div>
-                        <div>
-                            <button type="submit">Boolean query search</button>
-                        </div>  
-                    </form>                    
-                </div>
-
-
-
+                    </mat-card-content> 
+                </mat-card>
+                <br><br>
+                <mat-card class="example-card">  
+                    <mat-card-content> 
+                        <div class="container">
+                            <form [formGroup]="booleanQuerySearchForm" (ngSubmit)="onBooleanQuerySearchFormSubmit()">
+                                <p>Boolean query</p>                     
+                                <select formControlName="field1">
+                                    <option *ngFor="let field of allFields">{{field}}</option>
+                                </select>
+                                <input type="text" formControlName="value1" placeholder="value1">   
+                                <div>                            
+                                    <select formControlName="operation">
+                                        <option *ngFor="let operation of operations">{{operation}}</option>
+                                    </select>
+                                </div>                        
+                                <div>
+                                    <select formControlName="field2">
+                                        <option *ngFor="let field of allFields">{{field}}</option>
+                                    </select>
+                                    <input type="text" formControlName="value2" placeholder="value2">
+                                </div>
+                                <div>
+                                    <button [disabled]="!booleanQuerySearchForm.valid" type="submit">Boolean query search</button>
+                                </div>  
+                            </form>                    
+                        </div>
+                    </mat-card-content> 
+                </mat-card>
             </div>
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 second">
-                <div *ngFor = "let result of searchResult">
-                    <div>
-                        <p>Title: {{result.title}}</p>
-                        <p>Author: {{result.author}}</p>
-                        <p>Genre: {{result.genre}}</p>
-                        <p>ISBN: {{result.ISBN}}</p>
-                        <p>Key words: {{result.keywords}}</p>
-                        <p>Publisher: {{result.publisher}}</p>
-                        <p>Publishing year: {{result.publishingyear}}</p>
-                        <p>Publishing place: {{result.publishingplace}}</p>
-                        <p>Page number: {{result.pagenumber}}</p>
-                        <p>Sysnopys: {{result.sysnopys}}</p>
-                        <p>Lectoring data: {{result.lectoringdata}}</p>
-                        <p>Directors: {{result.directors}}</p>
-                        <p>Content: {{result.content}}</p>
-                        <p>Location: {{result.location}}</p>
-                        <button (click)="downloadPDF(result.internalId, result.title)">Download</button>
-                    </div>
+                <div *ngFor = "let result of searchResult">            
+                    <div style="margin-bottom: 5px;">
+                        <mat-card class="example-card">  
+                            <mat-card-content> 
+                                <p>Title: {{result.title}}</p>
+                                <p>Author: {{result.author}}</p>
+                                <p>Genre: {{result.genre}}</p>
+                                <p>ISBN: {{result.isbn}}</p>
+                                <p>Key words: {{result.keywords}}</p>
+                                <p>Publisher: {{result.publisher}}</p>
+                                <p>Publishing year: {{result.publishingyear}}</p>
+                                <p>Publishing place: {{result.publishingplace}}</p>
+                                <p>Page number: {{result.pagenumber}}</p>
+                                <p>Sysnopys: {{result.sysnopys}}</p>
+                                <p>Lectoring data: {{result.lectoringdata}}</p>
+                                <p>Directors: {{result.directors}}</p>
+                                <p>Content: {{result.content}}</p>
+                                <p>Location: {{result.location}}</p>
+                                <button (click)="downloadPDF(result.internalId, result.title)">Download</button>
+                            </mat-card-content> 
+                        </mat-card>
+                    </div>                        
                 </div>
             </div>               
         </div>
